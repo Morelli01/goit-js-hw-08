@@ -3,7 +3,6 @@ import throttle from 'lodash.throttle';
 const form = document.querySelector('.feedback-form');
 const emailInput = form.querySelector('input[name="email"]');
 const messageInput = form.querySelector('textarea[name="message"]');
-const warningMessage = document.querySelector('.warning-message');
 
 const saveFormState = throttle(() => {
   const formState = {
@@ -28,20 +27,6 @@ const clearFormState = () => {
   messageInput.value = '';
 };
 
-const validateForm = () => {
-  if (emailInput.value === '' || messageInput.value === '') {
-    warningMessage.textContent = 'Please fill in all fields.';
-  } else {
-    warningMessage.textContent = '';
-    const formState = {
-      email: emailInput.value,
-      message: messageInput.value
-    };
-    console.log(formState);
-    clearFormState();
-  }
-};
-
 emailInput.addEventListener('input', saveFormState);
 messageInput.addEventListener('input', saveFormState);
 
@@ -49,5 +34,16 @@ window.addEventListener('load', fillFormFromState);
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
-  validateForm();
+
+  if (emailInput.value === '' || messageInput.value === '') {
+    alert('Будь ласка, заповніть всі поля форми.');
+    return;
+  }
+
+  const formState = {
+    email: emailInput.value,
+    message: messageInput.value
+  };
+  console.log(formState);
+  clearFormState();
 });
