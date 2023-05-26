@@ -44,6 +44,8 @@ form.addEventListener('submit', (event) => {
     email: emailInput.value,
     message: messageInput.value
   };
+
   console.log(formState);
+
   clearFormState();
 });
